@@ -449,7 +449,7 @@ def kubeOperator(config_dir, es_cluster, opt_labels, queries_only):
     watch = kubernetes.watch.Watch()
 
     def filter_labels(cr_labels, opt_labels):
-        labels_list = [f"{key}={value}" for key, value in cr_labels.items()]
+        labels_list = [f"{key}:{value}" for key, value in cr_labels.items()]
         return any(label in labels_list for label in opt_labels)
 
 
@@ -853,7 +853,7 @@ CONFIGPARSER_CONVERTERS = {
 @click.option('--filter-cr-labels',
               callback=indices_stats_indices_parser,
               help='Consider only reources which match label. '
-                   'Labels should be separated by commas e.g. env=dev,app=base.')
+                   'Labels should be separated by commas e.g. env:dev,app:base.')
 @click.option('--operator-queries-only', default=False, is_flag=True,
               help='Only quries not templates CR.')
 
